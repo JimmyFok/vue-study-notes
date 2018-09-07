@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+
+    <div id="app-4">
+        <ul style="list-style:none">
+            <li v-for="todo in todos">
+                {{todo.text}}
+            </li>
+        </ul>
+    </div>
+
+    <script>       
+        let app4 = new Vue({
+            el: '#app-4',
+            data:{
+                todos:[
+                    {text:"大佬1"},
+                    {text:"大佬2"},
+                    {text:"大佬3"},
+                    {text:"大佬4"},
+                    {text:"大佬5"}
+                ]
+            }
+        })
+
+    </script>
+</body>
+</html>

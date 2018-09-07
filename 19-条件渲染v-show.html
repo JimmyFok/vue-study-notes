@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        .active{
+            color:white;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 暂时没看出来v-for比v-if高优先级 -->
+        <div v-for="a in names" v-if="ok"> 
+            <div>{{a.name}}</div>
+        </div> 
+    </div>
+            
+    <script>   
+        // 组件上加类名  
+        Vue.component("my-component",{
+            template: '<p class ="foo bar">Hi</p>'
+        })
+        
+        // 这是一个设定数据，将样式设定为一个对象，跟react的stylesheet类似
+        var vm = new Vue({
+            el:"#app",
+            // 以分散的数据来存各自的样式值
+            data:{
+                ok: false,
+                loginType: true,
+                names:[
+                    {name:1},
+                    {name:2},
+                    {name:3},
+                ]
+            }
+        })
+        
+    </script>    
+</body>
+</html>

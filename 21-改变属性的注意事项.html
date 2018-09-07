@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        .active{
+            color:white;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        {{useProfile.name}}
+        {{useProfile.age}}
+    </div>
+            
+    <script>
+
+        // Vue不能检测对象属性的添加或删除：
+        // var vm = new Vue({
+        //     data:{
+        //         a:1   // 这里是响应式的
+        //     }
+        // }) 
+
+        // vm.b=2  // vm.b不是响应的
+
+        // 分析：因为周期实例化的时候已经完成了对应Vue的实例，就是已经创建了对应的引用类型对象，
+        // 而直接修改的话，是没有对指针进行任何的改变，所以是检测不了其属性的添加或删除。
+        // 所以其实每次渲染都是重新实例化的过程，需要想方法让它重新实例化，所以需要调用Vue构造函数的方法set。
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                useProfile:{
+                    name: 'Anika'
+                }
+            }
+        })
+
+        // vm.useProfile.age=27  // 这个没变
+        
+        // Vue.set(vm.useProfile,"age",27)     // 这个会变了
+
+        // vm.$set(vm.useProfile,'age',88)     // 这个会变了
+
+        
+
+    </script>    
+</body>
+</html>

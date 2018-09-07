@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        .active{
+            color:white;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="n in evenNumbers">{{n}}</li>
+        </ul>
+        <ul>
+            <li v-for="n in even(numbers)">{{n}}</li>
+        </ul>
+
+        <ul>
+            <template v-for="item in items">
+                <li>{{item.msg}}</li>
+                <li class="divider" role="presentation"></li>
+            </template>
+        </ul>
+
+         <ul  v-if="todos.length">
+            <li v-for="todo in todos" v-if="!todo.isComplete">
+                 {{todo.aaa}}
+            </li>
+         </ul>
+
+         <!-- 直接数字遍历也可以 -->
+         <!-- 这是先v-for遍历 -->
+         <ol>
+             <li v-for="(num,i) in 10" v-if="!msg">{{i}} + {{num}}</li>
+         </ol>
+         
+        
+    </div>
+            
+    <script>
+       var vm = new Vue({
+           el:'#app',
+           data:{
+               numbers:[1,2,3,4,5],
+               items:[
+                   {msg:"哈哈哈"},
+                ],
+               todos:[
+                //    {aaa:111},
+                //    {aaa:222},
+                //    {aaa:333}
+               ]
+           },
+           computed:{
+               evenNumbers:function(){
+                   // filter就是过滤方法，只要是传入子元素是true的时候就要保留
+                   // Array.prototype.filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+                   return this.numbers.filter(function(number){
+                       return number % 2 === 0  // 但凡true的都存进去
+                   })
+               }
+           },
+           methods:{
+               even:function(numbers){
+                   return numbers.filter(function(number){
+                       return number % 2 === 0
+                   })
+               }
+           }
+       })
+       
+       // 赋值来渲染，因为v-for的优先级比v-if更高。
+    //    vm.todos =[
+    //             {aaa:111},
+    //              {aaa:222},
+    //             {aaa:333}
+    //            ]
+
+    </script>    
+</body>
+</html>

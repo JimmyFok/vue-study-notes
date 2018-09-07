@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div class="app" @click="a=111">
+        {{a}}
+    </div>
+    <!-- 事实证明就算绑定的是类名也只能绑一个实例 -->
+    <div class="app" id="app"  @click="a=111">
+        {{a}}
+    </div>
+
+    <!-- 事实证明就算绑定的是类名也只能绑一个实例 -->
+    <div class="add" id="add"  @click="a=111">
+            {{a}}
+        </div>
+
+    <script>
+        // 1、实例化一个Vue
+        var vm = new Vue({
+            // TODO 写Vue规定的参数，如el、data、method之类
+        })
+
+        // 2、数据与方法
+        var data = {a:1};
+        var newVm =new Vue({
+            el:'.app',
+            data: data
+        })
+
+        newVm.a == data.a;
+
+        newVm.a=2
+        console.log('我改变的是Vue的data中的a为2, data对象也在变')
+        console.log(data.a)   // 这由于是引用类型，所以会改变很正常
+
+        var cd = data;
+        newVm.a = 3;
+        console.log(cd.a); // 还是会改变
+
+        cd.a="我是谁？"
+        console.log(newVm.a)
+        console.log(data.a)
+        console.log(data.a)  
+
+        // 所以说真的是都用了同一个引用，所以只有Object.freeze()方法才能让其失效。
+        Object.freeze(data);  // 但你会发现冻结不了，因为这个对好像还在传入之后冻结是无效果的？！
+
+        var aaa ={a:1}
+
+        // 只有冻结了再传入才有效，不同都引用同一个就好        
+        var newVm2 = new Vue({
+            el: '#app',
+            data: Object.freeze(aaa)   
+        })
+
+        // 那么问题来了如何解除冻结了？
+
+        // 之前就有疑问了，数据可以直接引用，例如newVm.a，但是如果要取我自己定义的el、data或methods呢？
+        // 答案是肯定的。
+        var data1 = {a:1,b:2,c:3};
+        var vm666 = new Vue({
+            el:".add",
+            data:data1
+        })
+
+        console.log(vm666.$data === data1)
+        console.log(vm666.$el === document.getElementsByClassName('add')[0]);
+        console.log(vm666.$el === document.querySelector('.add'));
+
+        // $watch 是一个实例方法
+        newVm.$watch('a', function (newValue, oldValue) {
+            // 这个回调将在 `vm.a` 改变后调用
+            // console.log(this)
+            newVm.$el.style.color ="red";
+        })
+        
+        //3、实例生命周期钩子
+        // 理解的意思就是实例化的一个过程，从创建到消亡的一个周期，周期中有不同的阶段，对应都有一个钩子，在这个钩子处设定对应函数能更好丰富整个对象的初始化行为。
+
+        // created 钩子：实例被创建之后执行的代码
+        new Vue({
+            data:{
+                a:1
+            },
+            created:function(){
+                // ‘this’指向vm实例
+                console.log("a is "+ this.a)  // 生命周期钩子作为一个方法，是实例本身在调用，所有this是指向当前实例。
+            }
+        })
+
+        // mounted、updated和destroyed等钩子
+        
+
+        // 注意：因为箭头函数是this指向指向的是提供所在作用域的对象，所以在Vue的选项属性喝回调都不用要箭头函数。
+        
+        
+        
+
+    </script> 
+</body>
+</html>

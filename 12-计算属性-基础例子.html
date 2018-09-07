@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="example">
+        <!-- 这里是直接用表达式来完成逻辑 -->
+        <p>{{message.split("").reverse().join("")}}</p> 
+
+        <!-- 下面这里是通过计算属性来实现 -->
+        <p>{{message}}</p>
+        <p>{{reversedMessage}}</p>
+    </div>
+    <script>
+        // 其实{{}}跟es6的那个格式化的`{}`的很像。        
+
+        // 因为都是只支持单表达式，所以如果把逻辑放在里面的话，那就会很难理解其中的用意，所以建议用计算属性和监听器来实现。
+        // 对于任何复杂的逻辑，都应该使用计算属性。
+
+        var vm = new Vue({
+            el: '#example',
+            data:{
+                message:"abcdefg我是谁",
+            },
+            // 计算属性
+            computed:{
+                // 计算属性的 getter
+                reversedMessage: function(){
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+        
+    </script>    
+</body>
+</html>

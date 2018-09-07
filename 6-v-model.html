@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+
+    <div id="app-6">
+        <p>{{title}}</p>
+        <p>{{message}}</p>
+        <!-- 感觉是绑定好对应的数据到value上 -->
+        <input v-model="title"> 
+        <textarea v-model="message"></textarea>
+        <!-- 这里就可以直接绑定对应的值 -->
+        <select name="city" id="city" v-model="chosedCity"> 
+            <option v-for="city in citys" v-bind:value="city.name" >{{city.name}}</option>
+        </select>
+        {{chosedCity}}
+    </div>
+
+    <script>       
+        let app6 = new Vue({
+            el: '#app-6',
+            data:{
+               title: "大佬们都是大佬",
+               message: "大佬们都是大佬",
+               chosedCity:"广州市",
+               citys:[
+                   {name:"广州市"},
+                   {name:"深圳市"},
+                   {name:"香港特区"},
+                   {name:"澳门特区"},
+                   {name:"中山市"},
+               ]
+            }
+        })
+    </script>
+</body>
+</html>

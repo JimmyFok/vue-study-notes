@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="example">
+        <p>{{fullname}}</p>
+        <button @click="firstname=111">点我</button>
+    </div>
+    
+    <script>
+        // 其实{{}}跟es6的那个格式化的`{}`的很像。        
+
+        // 因为都是只支持单表达式，所以如果把逻辑放在里面的话，那就会很难理解其中的用意，所以建议用计算属性和监听器来实现。
+        // 对于任何复杂的逻辑，都应该使用计算属性。
+
+        var vm = new Vue({
+            el: '#example',
+            data:{
+                firstname:"Jimmy",
+                lastname:"Fok",
+            },
+            //计算属性（跟方法不同的时只要不改变的话值一直依赖于data而缓存了,避免了getter方法的调用，而method是每次调用都要运行一次）
+            computed:{
+                // 这样设定的实际是getter的方法，就是意思是获取的意思，所以是被动改变了数据而触发的
+                fullname:{
+                    // getter
+                    get:function(){
+                        return this.firstname + ' ' + this.lastname;
+                    },
+                    // setter
+                    set:function(newValue){  // 这同事改变了firstname和lastname
+                        var names = newValue.split(' ');
+                        this.firstname = names[0];
+                        this.lastname = names[names.lenght -1];
+                    }
+                } 
+            }
+        })
+        
+    </script>    
+</body>
+</html>

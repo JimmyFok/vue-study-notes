@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        .active{
+            color:white;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 暂时没看出来v-for比v-if高优先级 -->
+        <div v-for="(a,index) of names" v-if="ok"> 
+            <div>{{index+1}}、{{a.name}}</div>
+        </div> 
+        <div v-for="(b,a,i) in source" v-if="ok" :key='i'> 
+                <div>{{i}}、{{a}} ：{{b}}</div>
+            </div> 
+    </div>
+            
+    <script>
+        
+        // 这是一个设定数据，将样式设定为一个对象，跟react的stylesheet类似
+        var vm = new Vue({
+            el:"#app",
+            // 以分散的数据来存各自的样式值
+            data:{
+                ok: true,
+                loginType: true,
+                names:[
+                    {name:1},
+                    {name:2},
+                    {name:3},
+                ],
+                source:{
+                    name:"hjm",
+                    age:18,
+                    high:176
+                }
+            }
+        })
+        
+    </script>    
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        .active{
+            color:white;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 这里的意思是active这个类是否存在取决于:后面的值的布尔值 -->
+        <div v-bind:class="{active:isActive}">我是白字红底吗</div>
+        <button @click='change'>点击变色</button>
+        <!-- <button @click='isActive=false'>还原</button> -->
+         <!--这里就是因为有-的类名才用引号-->
+        <!-- <div class="static" 
+            v-bind:class="{active:isActive, 'text-danger':hasError}"> 
+        </div> -->
+    </div>
+    </div>
+            
+    <script>        
+       var vm=new Vue({
+           el:"#app",
+           data:{
+               isActive:false,
+           },
+           methods:{
+               change: function(){
+                   this.isActive = !this.isActive
+               }
+           }           
+       })
+    </script>    
+</body>
+</html>

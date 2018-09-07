@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <!-- 展示Vue对象中message -->
+    <div id='app' :title="message">
+        {{message}}
+        <!-- 绑定数据到标签的属性上，达到绑定元素特性 -->
+        <div id='app-1' v-bind:time="time"> 
+            <!-- 相当于数据特性与对应的el的绑定时 -->
+            {{time}}
+        </div>
+    </div>
+
+    
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data:{
+                message:'Hello Vue!',
+                time: '页面加载于'+ new Date().toString()
+            }
+        })
+
+        let app1 = new Vue({
+            el: '#app-1',
+            data:{
+                message1:'哈哈哈!'
+            }
+        })
+
+        let app0 = new Vue({
+            el: '#app-1',
+            data:{
+                message1:'哈哈哈!'
+            }
+        })
+    </script>
+</body>
+</html>

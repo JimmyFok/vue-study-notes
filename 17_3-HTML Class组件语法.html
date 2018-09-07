@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        .active{
+            color:white;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 类名绑定的数组语法 -->
+        <div v-bind:class="[activeClass, errorClass]"></div>
+        <div v-bind:class="[true ? errorClass:activeClass]"></div>
+        <my-component v-bind:class="[activeClass, errorClass]"></my-component>
+        <!-- 这里要注意的是顺序了，组件加的样式是后加入的 -->
+    </div>
+    </div>
+            
+    <script>   
+        // 组件上加类名  
+        Vue.component("my-component",{
+            template: '<div class ="foo bar">Hi<p class ="foo bar">Hi</p></div>'
+        })
+
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                activeClass: 'active',
+                errorClass: 'text-danger'
+            }           
+        })
+    </script>    
+</body>
+</html>
