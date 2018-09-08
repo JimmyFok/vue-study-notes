@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件处理</title>
+    <script src="./js/vue.js"></script>    
+</head>
+<body>
+    <div id="app" @keyup.aaa="aaa">       
+        <!-- 为了更好的监听键盘，Vue有按键修饰符 -->
+        <!-- 只有在`keyCode`是13时调用`vm.submit()` -->
+        <input v-on:keyup.13="submit">
+
+        <!-- Vue给keyCode增加了一些别名，与上面等价-->
+        <input v-on:keyup.enter="submit">  
+        <input @keyup.enter="submit"> 
+
+        <!-- 全部按键别名:
+        .enter
+        .tab
+        .delete(捕获“删除”和“退格”键盘)
+        .esc
+        .space
+        .up
+        .down
+        .left
+        .right  
+        -->
+
+        <!-- 全局获取自定义按键修饰符别名 Vue.config.keyCodes -->
+        <!-- 可以用来自定义 -->
+        <button @keyup.aaa="aaa"></button>
+        <button @click.ctrl="bbb">Ctrl下点击</button>
+        <button @keyup.enter.ctrl="bbb">Ctrl下点击</button>
+
+        <button @click.ctrl.exact="bbb">有且只有Ctrl按下，再点击触发</button>
+        <button @click.exact="bbb">有且仅有点击时触发</button>
+
+        <button @click.ctrl.alt.exact="bbb">有且只有Ctrl+alt按下，再点击触发</button>
+        <button @click.ctrl.exact.alt="bbb">效果跟上一个一样</button>
+        
+
+
+        <button @click.middle="bbb">效果跟上一个一样</button>
+
+
+
+
+    </div>
+            
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data:{
+
+            },
+            methods:{
+                aaa:function(event){
+                    alert(event.target.keyCode)
+                },
+                bbb:function(){
+                    console.log("666")
+                }
+            }
+        })
+        Vue.config.keyCodes.aaa = 13;
+
+    </script>    
+</body>
+</html>

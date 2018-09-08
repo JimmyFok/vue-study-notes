@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单输入绑定</title>
+    <script src="./js/vue.js"></script>    
+</head>
+<body>
+    <div id="app">       
+        <!-- 表单输入绑定 -->
+        <input v-model="input1" placeholder="请输入内容">
+        {{input1}}
+
+        <textarea v-model="input2">{{inner}}</textarea>
+        <button @click="changeHTML">我修改的innerHTML</button>
+        {{input2}}
+
+        <!-- 复选框单选 -->
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{checked}}</label>
+
+        <!-- 复选框多选 -->
+         <div id='example-3'>
+            <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+            <label for="jack">Jack</label>
+            <input type="checkbox" id="Jason" value="Jason" v-model="checkedNames">
+            <label for="jack">Jason</label>
+            <input type="checkbox" id="mike" value="mike" v-model="checkedNames">
+            <label for="jack">mike</label>
+            <br>
+            <span>选中的人:{{checkedNames}}</span>
+
+         </div>
+
+        <!-- 单选按钮 -->
+        <div id="example-4">
+            <input type="radio" id="one" value="One" v-model="picked">
+            <label for="one">One</label>
+            <br>
+            <input type="radio" id="two" value="Two" v-model="picked">
+            <label for="two">Two</label>
+            <br>
+            <span>Picked: {{ picked }}</span>
+        </div>
+
+        <!-- 选择框selected -->
+        <div id="example-5">
+            <select v-model="selected" >
+                <!-- 请选择这个开始提示的value设为"" -->
+                <option disabled value="">请选择</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+            <span>Selected: {{ selected }}</span>
+        </div>
+
+        <select v-model="selected">
+            <option v-for="option in options" :value="option.value">{{option.text}}</option>
+        </select>        
+
+        <input v-model.lazy="msg">
+        {{msg}}
+
+        <input v-model="age" type="number">
+        {{ageType}}
+        <input v-model.number="age" type="number">
+        {{ageType}}
+
+        <input v-model.trim="age" type="string">
+        {{age}}
+        {{ageType}}
+
+
+    </div>
+            
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data:{
+                input1: '水电费离开的时间',  // 相当于初始化的值
+                input2: '我是第一个输入框',  // 相当于初始化的值
+                inner: "88888",
+                checked:"什么？",  // 会因为复选框而改变成true或false
+                checkedNames:[],
+                picked:"",
+                selected:"",
+                options:[
+                    {text:"One",value:"A"},
+                    {text:"Two",value:"B"},
+                    {text:"Three",value:"C"}
+                ],
+                msg:"大佬救救我",
+                age:""
+            },
+            computed:{
+                ageType: function(){
+                    return typeof this.age
+                }
+            },
+            methods:{
+                changeHTML:function(){
+                    this.inner = "66666" // 必须要注意要指向当前的vm对象才能改inner，当然inner改了实际输入框不会改
+                    this.input2 = "sdfdsfdsfds"
+                }
+            }
+        })
+    </script>    
+</body>
+</html>
