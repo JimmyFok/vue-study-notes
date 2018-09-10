@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单输入绑定</title>
+    <script src="./js/vue.js"></script>    
+</head>
+<body>
+    <div id="app">
+        <!-- 渲染组件 -->
+
+        <!-- 其实组件就相当于一个标签 -->
+        <button-counter title="hahahaha" name= "sdfdsfdsf"></button-counter>
+        <button-counter title="sdklfjdsklfjdsjf"  name= "sdfds123sf"></button-counter>
+    </div>
+
+    <div id="demo">
+        <!-- 要记得给key绑定值 -->
+        <input type="text" placeholder="请输入倍数">
+        <div :style="{fontSize:postFontSize+'em'}">
+            <blog-post
+                v-for="post in posts"
+                :key="post.id"   
+                :post="post"
+                @enlarge-text="onEnlargeText"
+            ></blog-post>
+        </div>
+    </div>
+            
+    <script>
+        /// 创建一个Vue组件
+        // 按钮计数的组件
+        Vue.component('button-counter',{
+            // prop自定义特性，相当于自定义了一个参数
+            props:['title','name'],// 例如：设定一个title的参数，可以再组建中使用对应的值
+            data: function(){
+                return{
+                    count:0
+                }
+            },
+            
+            template:'<div><h1>{{title}}</h1><button v-on:click="count++">你点击了我{{count}}次。</button><div>{{name}}</div></div>'
+        })
+
+        Vue.component('blog-post',{
+            props:['post'],
+            // 因为是组件中的按钮，而数据是绑定在组件的父级层，所以要子级的事件修改父类的样式，这就需要调用$emit方法来传入事件的名字来向父级组件触发一个事件
+            template:`
+                <div class='blog-post'>
+                    <h3>{{post.title}}</h3>
+                    <button @click ="$emit('enlarge-text',post.x)">
+                        放大字体
+                    </button>
+                    <div v-html="post.content"></div>
+                </div>
+            `
+        })
+
+        let vm = new Vue({
+            el: '#app',            
+        })
+
+        let vm2 = new Vue({
+            el: '#demo',
+            data:{
+                posts:[
+                    {id:1,title:"a",content:"写什么好",x:3}
+                ],
+                postFontSize:1                
+            },
+            methods:{
+                onEnlargeText:function(enlargeAmount){
+                    this.postFontSize += enlargeAmount
+                }
+            }
+        })
+
+
+
+
+
+    </script>    
+</body>
+</html>

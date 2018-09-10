@@ -9,19 +9,20 @@
 </head>
 <body>
     <div id="app">
-        <custom-input>这是我要插入的内容</custom-input>
+        <custom-input v-model="searchText"></custom-input>
         <div>{{searchText}}</div>
     </div>
             
     <script>
         Vue.component('custom-input',{
-            props:[],
+            props:['value'],
             // $emit第1参数是事件，第2个参数是抛出的值，让组件$event获取
             template:`
                 <div>
-                    <slot></slot>
-                    我是组件内容
-                    
+                    <input
+                        v-bind:value="value"
+                        v-on:input="$emit('input',$event.target.value)"                        
+                    >
                 </div>
             `
         })
